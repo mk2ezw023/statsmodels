@@ -41,7 +41,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.tsa.base.tsa_model as tsbase
 from statsmodels.base import data
-from statsmodels.tsa.tsatools import add_constant, lagmat
+from statsmodels.tsa.tsatools import add_trend, lagmat
 from statsmodels.regression.linear_model import OLS, OLSResults
 from statsmodels.tools.decorators import (cache_readonly, cache_writable,
                                           resettable_cache)
