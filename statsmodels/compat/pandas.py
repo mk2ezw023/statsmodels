@@ -18,14 +18,14 @@ if version >= '0.20':
         from pandas.tseries import offsets as frequencies
     except ImportError:
         from pandas.tseries import frequencies
-    data_klasses = (pandas.Series, pandas.DataFrame, pandas.Panel)
+    data_klasses = (pandas.Series, pandas.DataFrame)
 else:
     try:
         import pandas.tseries.frequencies as frequencies
     except ImportError:
         from pandas.core import datetools as frequencies  # noqa
 
-    data_klasses = (pandas.Series, pandas.DataFrame, pandas.Panel,
+    data_klasses = (pandas.Series, pandas.DataFrame,
                     pandas.WidePanel)
 
 try:
