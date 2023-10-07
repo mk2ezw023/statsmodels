@@ -36,7 +36,7 @@ except ImportError:
 assert_frame_equal = testing.assert_frame_equal
 assert_index_equal = testing.assert_index_equal
 assert_series_equal = testing.assert_series_equal
-    RangeIndex = tuple()
+RangeIndex = tuple()
 
 try:
     from pandas.core.common import is_numeric_dtype
