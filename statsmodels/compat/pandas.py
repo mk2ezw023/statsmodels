@@ -2,35 +2,40 @@ from __future__ import absolute_import
 
 from distutils.version import LooseVersion
 
-import numpy as np
 import pandas
 
 
 version = LooseVersion(pandas.__version__)
 
-if version >= '0.17.0':
-    def sort_values(df, *args, **kwargs):
-        return df.sort_values(*args, **kwargs)
-elif version >= '0.14.0':
-    def sort_values(df, *args, **kwargs):
-        kwargs.setdefault('inplace', False)  # always set inplace with 'False' as default
-        return df.sort(*args, **kwargs)
-else:  # Before that, sort didn't have 'inplace' for non data-frame
-    def sort_values(df, *args, **kwargs):
-        if isinstance(df, pandas.DataFrame):
-            return df.sort(*args, **kwargs)
-        # Just make sure inplace is 'False' by default, but doesn't appear in the final arguments
-        # Here, setdefaults will ensure the del operation always succeeds
-        inplace = kwargs.setdefault('inplace', False)
-        del kwargs['inplace']
-        if not inplace:
-            df = df.copy()
-        df.sort(*args, **kwargs)
-        return df
 
 try:
-    from pandas import RangeIndex
+    from pandas.api.types import is_numeric_dtype  # noqa:F401
 except ImportError:
+    from pandas.core.common import is_numeric_dtype  # noqa:F401
+
+if version >= '0.20':
+    try:
+        from pandas.tseries import offsets as frequencies
+    except ImportError:
+        from pandas.tseries import frequencies
+    data_klasses = (pandas.Series, pandas.DataFrame, pandas.Panel)
+else:
+    try:
+        import pandas.tseries.frequencies as frequencies
+    except ImportError:
+        from pandas.core import datetools as frequencies  # noqa
+
+    data_klasses = (pandas.Series, pandas.DataFrame, pandas.Panel,
+                    pandas.WidePanel)
+
+try:
+    import pandas.testing as testing
+except ImportError:
+    import pandas.util.testing as testing
+
+assert_frame_equal = testing.assert_frame_equal
+assert_index_equal = testing.assert_index_equal
+assert_series_equal = testing.assert_series_equal
     RangeIndex = tuple()
 
 try:
