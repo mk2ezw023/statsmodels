@@ -156,7 +156,7 @@ class SETAR(OLS, tsbase.TimeSeriesModel):
 
         # Trends
         if self.k_trend:
-            orig_exog = add_constant(orig_exog)
+            orig_exog = add_trend(orig_exog)
 
         # Create datasets / complete initialization
         endog = orig_endog[self.nobs_initial:]
