@@ -11,7 +11,7 @@ Joblib requires functions to be defined in a separate module.
 
 """
 
-import setar_model
+import statsmodels.tsa.setar_model
 
 def _order_test_bootstrap(sample, delay, threshold_grid_size,
                           null_order, null_ar_order, alt_order, alt_ar_order):
