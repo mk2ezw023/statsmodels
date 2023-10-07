@@ -46,7 +46,7 @@ from statsmodels.regression.linear_model import OLS, OLSResults
 from statsmodels.tools.decorators import (cache_readonly, cache_writable,
                                           resettable_cache)
 import statsmodels.base.wrapper as wrap
-import setar_utils
+import statsmodels.tsa.setar_utils
 
 
 class InvalidRegimeError(RuntimeError):
